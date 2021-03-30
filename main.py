@@ -14,16 +14,18 @@ def addMark(data):
     cp = int(data[0])
     mark = data[1]
     itteration = len(fullCP)
-    newCP = fullCP[itteration - 1] + cp
-    fullCP.append(newCP)
     if mark.lower() == "b\n":
         newsumm = noteSumms[itteration - 1]
+        maxCP -= cp
+        fullCP.append(fullCP[itteration - 1])
     else:
         mark = float(mark)
         newsumm = noteSumms[itteration - 1] + mark * cp
+        newCP = fullCP[itteration - 1] + cp
+        fullCP.append(newCP)
     noteSumms.append(newsumm)
-    upperLimit = newsumm / 180 + (maxCP - newCP) / 180
-    lowerLimit = newsumm / 180 + (maxCP - newCP) * 4 / 180
+    upperLimit = (newsumm + maxCP - newCP) / 180
+    lowerLimit = (newsumm + maxCP - newCP) * 4 / 180
     leftAndRight.append((upperLimit, lowerLimit))
 
 
