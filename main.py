@@ -12,11 +12,15 @@ noteSumms = [0]
 
 def addMark(data):
     cp = int(data[0])
-    mark = float(data[1])
+    mark = data[1]
     itteration = len(fullCP)
     newCP = fullCP[itteration - 1] + cp
     fullCP.append(newCP)
-    newsumm = noteSumms[itteration - 1] + mark * cp
+    if mark.lower() == "b\n":
+        newsumm = noteSumms[itteration - 1]
+    else:
+        mark = float(mark)
+        newsumm = noteSumms[itteration - 1] + mark * cp
     noteSumms.append(newsumm)
     upperLimit = newsumm / 180 + (maxCP - newCP) / 180
     lowerLimit = newsumm / 180 + (maxCP - newCP) * 4 / 180
@@ -45,30 +49,31 @@ def drawCirclesAndLines():
         right = int((leftAndRight[i][1] - 1) * horizontalSize / 3 + horizontalPadding)
         pygame.draw.circle(screen, BLACK, (left, height), 5)
         pygame.draw.circle(screen, BLACK, (right, height), 5)
-        if i is not 0:
+        if i != 0:
             pygame.draw.line(screen, BLACK, lastPoints[0], (left, height), 1)
             pygame.draw.line(screen, BLACK, lastPoints[1], (right, height), 1)
         lastPoints = [(left, height), (right, height)]
 
+if __name__ == "__main__":
 
-pygame.init()
-screen = pygame.display.set_mode((450, 600))
-pygame.display.set_caption("Notenbestimmung")
-screen.fill((255, 255, 255))
+    pygame.init()
+    screen = pygame.display.set_mode((450, 600))
+    pygame.display.set_caption("Notenbestimmung")
+    screen.fill((255, 255, 255))
 
-file = open("marks.mks", "r")
-for line in file.readlines():
-    addMark(line.split(" "))
-file.close()
+    file = open("marks.mks", "r")
+    for line in file.readlines():
+        addMark(line.split(" "))
+    file.close()
 
-drawCirclesAndLines()
+    drawCirclesAndLines()
 
-print(leftAndRight[len(leftAndRight) - 1])
+    print(str(leftAndRight).replace("),", ")\n"))
 
-while True:
-    events = pygame.event.get()
-    for event in events:
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-    pygame.display.update()
+    while True:
+        events = pygame.event.get()
+        for event in events:
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
