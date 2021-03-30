@@ -8,10 +8,11 @@ leftAndRight = [(1.0, 4.0)]
 fullCP = [0]
 maxCP = 180
 noteSumms = [0]
-
+fullSum = 0
+countingMarks = 0
 
 def addMark(data):
-    global maxCP
+    global maxCP, fullSum, countingMarks
     cp = int(data[0])
     mark = data[1]
     itteration = len(fullCP)
@@ -22,6 +23,8 @@ def addMark(data):
         newCP = fullCP[itteration - 1]
     else:
         mark = float(mark)
+        fullSum += mark
+        countingMarks += 1
         newsumm = noteSumms[itteration - 1] + mark * cp
         newCP = fullCP[itteration - 1] + cp
         fullCP.append(newCP)
@@ -73,6 +76,7 @@ if __name__ == "__main__":
     drawCirclesAndLines()
 
     print(str(leftAndRight).replace("),", ")\n"))
+    print(fullSum / countingMarks)
 
     while True:
         events = pygame.event.get()
