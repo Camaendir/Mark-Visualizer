@@ -11,13 +11,15 @@ noteSumms = [0]
 
 
 def addMark(data):
+    global maxCP
     cp = int(data[0])
     mark = data[1]
     itteration = len(fullCP)
     if mark.lower() == "b\n":
         newsumm = noteSumms[itteration - 1]
-        maxCP -= cp
+        maxCP = maxCP - cp
         fullCP.append(fullCP[itteration - 1])
+        newCP = fullCP[itteration - 1]
     else:
         mark = float(mark)
         newsumm = noteSumms[itteration - 1] + mark * cp
