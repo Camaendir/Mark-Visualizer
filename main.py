@@ -27,7 +27,7 @@ def addMark(data):
         fullCP.append(newCP)
     noteSumms.append(newsumm)
     upperLimit = (newsumm + maxCP - newCP) / 180
-    lowerLimit = (newsumm + maxCP - newCP) * 4 / 180
+    lowerLimit = (newsumm + (maxCP - newCP) * 4) / 180
     leftAndRight.append((upperLimit, lowerLimit))
 
 
